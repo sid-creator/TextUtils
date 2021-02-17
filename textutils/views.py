@@ -34,20 +34,21 @@ def analyze(request):
         params = {'purpose': "Change to upper case", 'analyzed_text': analyzed}
         djtext = analyzed
 
+
+    if extraspaceremover == "on":
+        analyzed = ""
+        for index, char in enumerate(djtext):
+            if not (djtext[index] == " " and djtext[index + 1] == " "):
+                analyzed = analyzed + char
+        params = {'purpose': "Removed extra spaces", 'analyzed_text': analyzed}
+        djtext = analyzed
+
     if newlineremover == "on":
         analyzed = ""
         for char in djtext:
             if char != "\n" and char != "\r":
                 analyzed = analyzed + char
         params = {'purpose': "Removed new line", 'analyzed_text': analyzed}
-        djtext = analyzed
-
-    if extraspaceremover == "on":
-        analyzed = ""
-        for index, char in enumerate(djtext):
-            if not(djtext[index] == " " and djtext[index+1] == " "):
-                analyzed = analyzed + char
-        params = {'purpose': "Removed extra spaces", 'analyzed_text': analyzed}
 
     # elif charcount == "on":
     #     analyzed = 0
